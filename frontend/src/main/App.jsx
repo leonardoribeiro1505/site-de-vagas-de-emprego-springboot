@@ -1,12 +1,19 @@
-import 'bootstrap/dist/css/bootstrap.min.css'
 import 'font-awesome/css/font-awesome.min.css'
 import React from 'react'
 
-import Menu from '../template/menu'
+import { HashRouter } from 'react-router-dom'
+import MenuNav from '../template/MenuNav'
 import Routes from './routes'
 
-export default props =>
-    <div className="container">
-        <Menu />
-        <Routes />
-    </div>
+export default class App extends React.Component {
+    render() {
+        return (
+            <HashRouter>
+                <div className="container">
+                    <MenuNav />
+                    <Routes />
+                </div>
+            </HashRouter>
+    )
+    }
+}
