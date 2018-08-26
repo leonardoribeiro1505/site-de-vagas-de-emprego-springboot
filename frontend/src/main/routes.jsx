@@ -1,8 +1,8 @@
 import React from 'react'
 import { Route, Switch, HashRouter } from 'react-router-dom'
 
-import VagasList from '../vagas/List'
-import CadVagasForm from '../vagas/Form'
+import VagasList from '../components/vagas/List'
+import CadVagasForm from '../components/vagas/Form'
 import About from '../about/about'
 
 export default props =>

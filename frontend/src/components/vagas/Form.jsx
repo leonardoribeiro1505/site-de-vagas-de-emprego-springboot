@@ -17,28 +17,53 @@ const formTailLayout = {
 
 const baseUrl = 'http://localhost:3001/api/vagas'
 const initialState = {
-  vagas: {nomeCargo: '', tipoContratacao: '', cargaHoraria: '', salario: '', tempoExibicao: '', descricao: ''}
+  vagas: {nomeCargo: '', tipoContratacao: '', cargaHoraria: '', salario: '', tempoExibicao: '', descricao: ''},
+  list: []
 }
 
 class CadVagasForm extends React.Component {
   state = {
     ...initialState
-  };
+  }
 
-  limpar() {
+  clear() {
     this.setState({vagas: initialState.vagas})
   }
 
-  handlerAdd = () => {
+  save() {
+    const vaga = this.state.vagas
+    const method = vaga.id ? 'put' : 'post'
+    const url = vaga.id ? `${baseUrl}/${vaga.id}` : baseUrl
+    axios[method](url, vaga)
+    .then(resp => {
+      const list = this.getUpdatedList(resp.data)
+      this.setState({vaga: initialState.vagas, list})
+    })
+  }
+  
+  getUpdatedList(vaga) {
+    const list = this.state.list.filter(v => v.id !== vaga.id)
+    list.unshift(vaga)
+    return list
+  }
+  
+  updateField(event) {
+    const vagas = {...this.state.vagas}
+    vagas[event.target.nomeCargo] = event.target.value
+    this.setState({vagas})
+  }
+
+  handlerAdd() {
     this.props.form.validateFields(
       (err) => {
         if (!err) {
+          const nomeCargo = this.state.vagas.nomeCargo
           const tipoContratacao = this.state.vagas.tipoContratacao
           const cargaHoraria = this.state.vagas.cargaHoraria
           const salario = this.state.vagas.salario
           const tempoExibicao = this.state.vagas.tempoExibicao
           const descricao = this.state.vagas.descricao
-          axios.post(baseUrl, {tipoContratacao, cargaHoraria, salario, tempoExibicao, descricao})
+          axios.post(baseUrl, {nomeCargo, tipoContratacao, cargaHoraria, salario, tempoExibicao, descricao})
             .then(resp => console.log('Deu certo'))
         }
       },
@@ -62,7 +87,7 @@ class CadVagasForm extends React.Component {
               message: 'Por favor informe o nome do cargo',
             }],
           })(
-            <Input placeholder="Por favor informe o nome do cargo" />
+            <Input onChange={e => this.updateField(e)} placeholder="Por favor informe o nome do cargo" />
           )}
         </FormItem>
         <FormItem {...formItemLayout} label="Tipo de contratação">
@@ -124,10 +149,10 @@ class CadVagasForm extends React.Component {
           )}
         </FormItem>
         <FormItem {...formTailLayout}>
-          <Button type="primary" onClick={this.handlerAdd}>
+          <Button type="primary" onClick={e => this.save(e)}>
             Salvar
           </Button>
-          <Button type="secondary" onClick={e => this.limpar(e)}>
+          <Button type="secondary" onClick={e => this.clear(e)}>
             Limpar
           </Button>
         </FormItem>

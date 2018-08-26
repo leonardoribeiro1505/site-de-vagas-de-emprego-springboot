@@ -26,7 +26,7 @@ export default class MenuNav extends React.Component {
             </Link>
           </Menu.Item>
 
-          <Menu.Item key="2">
+          <Menu.Item key="3">
             <Link to="/about">
               <Icon type="info-circle" />
               Sobre
