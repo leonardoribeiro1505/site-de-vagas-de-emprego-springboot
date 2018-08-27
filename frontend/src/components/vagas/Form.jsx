@@ -40,6 +40,17 @@ class CadVagasForm extends React.Component {
       this.setState({vaga: initialState.vagas, list})
     })
   }
+
+  handleSubmit = (e) => {
+    e.preventDefault();
+    this.props.form.validateFieldsAndScroll((err, values) => {
+      if (!err) {
+        const nomeCargo = this.state.vagas.nomeCargo
+          axios.post(baseUrl, {nomeCargo})
+        console.log('Received values of form: ', values);
+      }
+    });
+  }
   
   getUpdatedList(vaga) {
     const list = this.state.list.filter(v => v.id !== vaga.id)
@@ -72,12 +83,12 @@ class CadVagasForm extends React.Component {
 
   render() {
     const rangeConfig = {
-      rules: [{ type: 'array', required: true, message: 'Por favor informe o tempo de exibição!' }],
+      rules: [{ type: 'array', required: false, message: 'Por favor informe o tempo de exibição!' }],
     };
     
     const { getFieldDecorator } = this.props.form;
     return (
-      <div>
+      <Form onSubmit={this.handleSubmit}>
         <br/>
         <center><h1>Incluir uma nova vaga</h1></center>
         <FormItem {...formItemLayout} label="Cargo">
@@ -93,7 +104,7 @@ class CadVagasForm extends React.Component {
         <FormItem {...formItemLayout} label="Tipo de contratação">
           {getFieldDecorator('tipoContratacao', {
             rules: [{
-              required: true,
+              required: false,
               message: 'Por favor informe o tipo de contratação',
             }],
           })(
@@ -141,7 +152,7 @@ class CadVagasForm extends React.Component {
         <FormItem {...formItemLayout} label="Descrição da vaga">
           {getFieldDecorator('descricao', {
             rules: [{
-              required: true,
+              required: false,
               message: 'Por favor informe os detalhes da vaga',
             }],
           })(
@@ -149,14 +160,14 @@ class CadVagasForm extends React.Component {
           )}
         </FormItem>
         <FormItem {...formTailLayout}>
-          <Button type="primary" onClick={e => this.save(e)}>
+          <Button type="primary" htmlType="submit">
             Salvar
           </Button>
           <Button type="secondary" onClick={e => this.clear(e)}>
             Limpar
           </Button>
         </FormItem>
-      </div>
+      </Form>
     );
   }
 }
