@@ -22,9 +22,10 @@ const initialState = {
 }
 
 class CadVagasForm extends React.Component {
-  state = {
-    ...initialState
-  }
+ 
+    state = {
+      ...initialState
+    }
 
   clear() {
     this.setState({vagas: initialState.vagas})
@@ -77,7 +78,7 @@ class CadVagasForm extends React.Component {
     
     const { getFieldDecorator } = this.props.form;
     return (
-      <div>
+      <Form onSubmit={e => this.save(e)}>
         <br/>
         <center><h1>Incluir uma nova vaga</h1></center>
         <FormItem {...formItemLayout} label="Cargo">
@@ -149,14 +150,14 @@ class CadVagasForm extends React.Component {
           )}
         </FormItem>
         <FormItem {...formTailLayout}>
-          <Button type="primary" onClick={e => this.save(e)}>
+          <Button type="primary" htmlType="submit">
             Salvar
           </Button>
           <Button type="secondary" onClick={e => this.clear(e)}>
             Limpar
           </Button>
         </FormItem>
-      </div>
+        </Form>
     );
   }
 }
