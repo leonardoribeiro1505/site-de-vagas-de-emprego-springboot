@@ -1,9 +1,9 @@
 import React from 'react'
 import { Form, Input, Button, DatePicker, Select, InputNumber } from 'antd';
+import locale from 'antd/lib/date-picker/locale/pt_BR';
 import axios from 'axios';
 
 const FormItem = Form.Item;
-const RangePicker = DatePicker.RangePicker;
 const Option = Select.Option;
 
 const formItemLayout = {
@@ -15,9 +15,9 @@ const formTailLayout = {
   wrapperCol: { span: 8, offset: 4 },
 };
 
-const baseUrl = 'http://localhost:3001/api/vagas'
+const baseUrl = 'http://localhost:3003/api/vagas'
 const initialState = {
-  vagas: {nomeCargo: '', tipoContratacao: '', cargaHoraria: '', salario: '', tempoExibicao: '', descricao: ''},
+  vagas: {nomeCargo: '', tipoContratacao: '', cargaHoraria: '', salario: '', inicioExibicao: '', fimExibicao: '', descricao: ''},
   list: []
 }
 
@@ -32,38 +32,34 @@ class CadVagasForm extends React.Component {
   }
 
   save() {
-    const vaga = this.state.vagas
-    const method = vaga.id ? 'put' : 'post'
-    const url = vaga.id ? `${baseUrl}/${vaga.id}` : baseUrl
-    axios[method](url, vaga)
-    .then(resp => {
-      const list = this.getUpdatedList(resp.data)
-      this.setState({vaga: initialState.vagas, list})
-    })
+    this.props.form.validateFields(
+      (err, value) => {
+        if (!err) {
+          const vaga = this.state.vagas
+          const method = vaga.id ? 'put' : 'post'
+          const url = vaga.id ? `${baseUrl}/${vaga.id}` : baseUrl
+          axios[method](url, value)
+          .then(resp => {
+            const list = this.getUpdatedList(resp.data)
+            this.setState({vaga: initialState.vagas, list})
+          })
+          console.log("Valor passado: ", value)
+        }
+      },
+    );
   }
 
-  handleSubmit = (e) => {
-    e.preventDefault();
-    this.props.form.validateFieldsAndScroll((err, values) => {
-      if (!err) {
-        const nomeCargo = this.state.vagas.nomeCargo
-          axios.post(baseUrl, {nomeCargo})
-        console.log('Received values of form: ', values);
-      }
-    });
+  updateField(event) {
+    const vagas = {...this.state.vagas}
+    vagas[event.target.getFieldDecorator] = event.target.value
+    this.setState({vagas})
   }
-  
+ 
   getUpdatedList(vaga) {
     const list = this.state.list.filter(v => v.id !== vaga.id)
     list.unshift(vaga)
     return list
-  }
-  
-  updateField(event) {
-    const vagas = {...this.state.vagas}
-    vagas[event.target.nomeCargo] = event.target.value
-    this.setState({vagas})
-  }
+  }  
 
   handlerAdd() {
     this.props.form.validateFields(
@@ -84,12 +80,12 @@ class CadVagasForm extends React.Component {
 
   render() {
     const rangeConfig = {
-      rules: [{ type: 'array', required: false, message: 'Por favor informe o tempo de exibição!' }],
+      rules: [{ required: false, message: 'Por favor informe o tempo de exibição!' }],
     };
     
     const { getFieldDecorator } = this.props.form;
     return (
-      <Form onSubmit={this.handleSubmit}>
+      <Form>
         <br/>
         <center><h1>Incluir uma nova vaga</h1></center>
         <FormItem {...formItemLayout} label="Cargo">
@@ -99,7 +95,7 @@ class CadVagasForm extends React.Component {
               message: 'Por favor informe o nome do cargo',
             }],
           })(
-            <Input onChange={e => this.updateField(e)} placeholder="Por favor informe o nome do cargo" />
+            <Input placeholder="Ex.: Analista de sistemas" />
           )}
         </FormItem>
         <FormItem {...formItemLayout} label="Tipo de contratação">
@@ -126,8 +122,7 @@ class CadVagasForm extends React.Component {
           })(
             <InputNumber 
               style={{ width: 454 }}
-              parser={value => parseInt(value.replace(/\D/g, '') || '0', 80)} 
-              formatter={value => `${value} horas por semana`} />
+              type="number" />
           )}
         </FormItem>
         <FormItem {...formItemLayout} label="Salário">
@@ -139,15 +134,30 @@ class CadVagasForm extends React.Component {
           })(
             <InputNumber 
               style={{ width: 454 }}
-              placeholder="Por favor informe o salário" />
+              placeholder="Por favor informe o salário" 
+              type="number" />
           )}
         </FormItem>
         <FormItem
           {...formItemLayout}
-          label="Tempo de Exibição"
+          label="Início de Exibição"
         >
-          {getFieldDecorator('tempoExibicao', rangeConfig)(
-            <RangePicker showTime format="DD-MM-YYYY HH:mm:ss" placeholder={["Início de exibição", "Fim de exbição"]}/>
+          {getFieldDecorator('inicioExibicao', rangeConfig)(
+            <DatePicker showTime format="DD-MM-YYYY" 
+            locale={locale}
+            style={{ width: 454 }}
+            placeholder="Marque o dia que irá publicar" />
+          )}
+        </FormItem>
+        <FormItem
+          {...formItemLayout}
+          label="Fim de Exibição"
+        >
+          {getFieldDecorator('fimExibicao', rangeConfig)(
+            <DatePicker showTime format="DD-MM-YYYY" 
+            locale={locale}
+            style={{ width: 454 }}
+            placeholder="Marque o dia do fim da publicação" />
           )}
         </FormItem>
         <FormItem {...formItemLayout} label="Descrição da vaga">
@@ -161,18 +171,14 @@ class CadVagasForm extends React.Component {
           )}
         </FormItem>
         <FormItem {...formTailLayout}>
-          <Button type="primary" htmlType="submit">
+          <Button type="primary" onClick={e => this.save(e)}>
             Salvar
           </Button>
           <Button type="secondary" onClick={e => this.clear(e)}>
             Limpar
           </Button>
         </FormItem>
-<<<<<<< HEAD
         </Form>
-=======
-      </Form>
->>>>>>> 2c0b5ae6216a9ca4f14981705fe602317e5a1285
     );
   }
 }
