@@ -9,4 +9,8 @@ module.exports = function(server) {
     //VAGAS Routes
     const vagasService = require('../api/vagas/vagasService')
     vagasService.register(router, '/vagas')
+
+    //USUARIOS Routes
+    const usuariosService = require('../api/login/usuariosService')
+    usuariosService.register(router, '/usuarios')
 }

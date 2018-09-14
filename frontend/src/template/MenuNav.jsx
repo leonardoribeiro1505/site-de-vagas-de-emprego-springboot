@@ -28,7 +28,7 @@ export default class MenuNav extends React.Component {
 
           <Menu.Item key="3">
             <Link to="/loginForm">
-              <Icon type="plus" />
+              <Icon type="user" />
               Login/Cadastre-se
             </Link>
           </Menu.Item>
