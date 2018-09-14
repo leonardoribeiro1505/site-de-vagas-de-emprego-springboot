@@ -15,7 +15,7 @@ const formTailLayout = {
   wrapperCol: { span: 8, offset: 4 },
 };
 
-const baseUrl = 'http://localhost:3003/api/vagas'
+const baseUrl = 'http://localhost:3002/api/vagas'
 const initialState = {
   vagas: {nomeCargo: '', tipoContratacao: '', cargaHoraria: '', salario: '', inicioExibicao: '', fimExibicao: '', descricao: ''},
   list: []
@@ -27,8 +27,12 @@ class CadVagasForm extends React.Component {
       ...initialState
     }
 
-  clear() {
-    this.setState({vagas: initialState.vagas})
+  // clear() {
+  //   this.setState({vagas: initialState.vagas})
+  // }
+
+  clear = () => {
+    this.props.form.resetFields();
   }
 
   save() {
@@ -43,7 +47,7 @@ class CadVagasForm extends React.Component {
             const list = this.getUpdatedList(resp.data)
             this.setState({vaga: initialState.vagas, list})
           })
-          console.log("Valor passado: ", value)
+          this.clear();
         }
       },
     );
@@ -59,23 +63,6 @@ class CadVagasForm extends React.Component {
     const list = this.state.list.filter(v => v.id !== vaga.id)
     list.unshift(vaga)
     return list
-  }  
-
-  handlerAdd() {
-    this.props.form.validateFields(
-      (err) => {
-        if (!err) {
-          const nomeCargo = this.state.vagas.nomeCargo
-          const tipoContratacao = this.state.vagas.tipoContratacao
-          const cargaHoraria = this.state.vagas.cargaHoraria
-          const salario = this.state.vagas.salario
-          const tempoExibicao = this.state.vagas.tempoExibicao
-          const descricao = this.state.vagas.descricao
-          axios.post(baseUrl, {nomeCargo, tipoContratacao, cargaHoraria, salario, tempoExibicao, descricao})
-            .then(resp => console.log('Deu certo'))
-        }
-      },
-    );
   }
 
   render() {
