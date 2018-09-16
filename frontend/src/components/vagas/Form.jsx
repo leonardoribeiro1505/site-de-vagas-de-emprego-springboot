@@ -7,12 +7,12 @@ const FormItem = Form.Item;
 const Option = Select.Option;
 
 const formItemLayout = {
-  labelCol: { span: 4 },
+  labelCol: { span: 9 },
   wrapperCol: { span: 8 },
 };
 const formTailLayout = {
   labelCol: { span: 4 },
-  wrapperCol: { span: 8, offset: 4 },
+  wrapperCol: { span: 8, offset: 9 },
 };
 
 const baseUrl = 'http://localhost:3002/api/vagas'
@@ -27,9 +27,11 @@ class CadVagasForm extends React.Component {
       ...initialState
     }
 
-  // clear() {
-  //   this.setState({vagas: initialState.vagas})
-  // }
+    componentWillMount() {
+      axios(baseUrl).then(resp => {
+        this.setState({ list: resp.data })
+      })
+    }
 
   clear = () => {
     this.props.form.resetFields();
@@ -74,7 +76,9 @@ class CadVagasForm extends React.Component {
     return (
       <Form>
         <br/>
-        <center><h1>Incluir uma nova vaga</h1></center>
+        <center>
+          <h1>Incluir uma nova vaga</h1>
+        </center>
         <FormItem {...formItemLayout} label="Cargo">
           {getFieldDecorator('nomeCargo', {
             rules: [{
@@ -82,7 +86,7 @@ class CadVagasForm extends React.Component {
               message: 'Por favor informe o nome do cargo',
             }],
           })(
-            <Input placeholder="Ex.: Analista de sistemas" />
+            <Input style={{ width: 454 }} placeholder="Ex.: Analista de sistemas" />
           )}
         </FormItem>
         <FormItem {...formItemLayout} label="Tipo de contratação">
@@ -107,9 +111,12 @@ class CadVagasForm extends React.Component {
               message: 'Por favor informe a carga horária',
             }],
           })(
-            <InputNumber 
-              style={{ width: 454 }}
-              type="number" />
+            <Select style={{ width: 454 }} placeholder="Por favor selecione a carga horária">
+              <Option value="20">20 horas semanais</Option>
+              <Option value="30">30 horas semanais</Option>
+              <Option value="40">40 horas semanais</Option>
+              <Option value="44">44 horas semanais</Option>
+            </Select>
           )}
         </FormItem>
         <FormItem {...formItemLayout} label="Salário">
@@ -154,7 +161,7 @@ class CadVagasForm extends React.Component {
               message: 'Por favor informe os detalhes da vaga',
             }],
           })(
-            <Input.TextArea rows={6} placeholder="Por favor informe os detalhes da vaga" />
+            <Input.TextArea style={{ width: 454 }} rows={6} placeholder="Por favor informe os detalhes da vaga" />
           )}
         </FormItem>
         <FormItem {...formTailLayout}>
