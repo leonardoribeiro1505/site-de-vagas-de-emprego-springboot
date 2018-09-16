@@ -8,6 +8,7 @@ export default class MenuNav extends React.Component {
     return (
       <div>
         <Menu
+          style={{ marginLeft: 100, marginRight: 100 }}
           defaultSelectedKeys={['1']}
           defaultOpenKeys={['sub1']}
           mode="horizontal"
