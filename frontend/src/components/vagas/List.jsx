@@ -20,28 +20,28 @@ export default class VagasList extends React.Component {
       }
 
     render() {
-        const listData = (this.state.list || []).map(i => ({...i, key: i.id}));
+        const listData = this.state.list
         return (
             <center>
-                    <br/>
-                    <h1>Vagas disponíveis</h1>
-                    <br/>
-                        <List
-                            itemLayout="horizontal"
-                            dataSource={listData}
-                            renderItem={item => (
-                            <Card
-                                hoverable
-                                style={{ width: 240 }}
-                                cover={<Link to={`/details/${item._id}`}><img width="238" alt="example" src={imageAvatar} /></Link>}
-                            >
-                                <Meta
-                                title={<Link to="/details">{item.nomeCargo}</Link>}
-                                description={<Link to="/details">Contratação: {item.tipoContratacao}</Link>}
-                                />
-                            </Card>
-                        )}
-                        />                
+                <br/>
+                <h1>Vagas disponíveis</h1>
+                <br/>
+                    <List
+                        itemLayout="horizontal"
+                        dataSource={listData}
+                        renderItem={item => (
+                        <Card
+                            hoverable
+                            style={{ width: 240 }}
+                            cover={<Link to={`/details/${item._id}`}><img width="238" alt="imagemDaEmpresa" src={imageAvatar} /></Link>}
+                        >
+                            <Meta
+                            title={<Link to={`/details/${item._id}`}>{item.nomeCargo}</Link>}
+                            description={<Link to={`/details/${item._id}`}>Contratação: {item.tipoContratacao}</Link>}
+                            />
+                        </Card>
+                    )}
+                    />
             </center>
         );
     }
