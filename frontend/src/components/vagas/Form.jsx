@@ -97,10 +97,10 @@ class CadVagasForm extends React.Component {
             }],
           })(
             <Select style={{ width: 454 }} placeholder="Por favor selecione o tipo de contratação">
-              <Option value="emprego">Emprego</Option>
-              <Option value="estagio">Estágio</Option>
-              <Option value="trainee">Trainee</Option>
-              <Option value="temporario">Temporário</Option>
+              <Option value="Emprego">Emprego</Option>
+              <Option value="Estágio">Estágio</Option>
+              <Option value="Trainee">Trainee</Option>
+              <Option value="Temporário">Temporário</Option>
             </Select>
           )}
         </FormItem>

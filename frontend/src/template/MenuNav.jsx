@@ -14,7 +14,7 @@ export default class MenuNav extends React.Component {
           mode="horizontal"
         >
           <Menu.Item key="1">
-            <Link to="/vagasList">
+            <Link to="/">
               <Icon type="home" />
               Home
             </Link>

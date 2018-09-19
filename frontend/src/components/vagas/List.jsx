@@ -1,6 +1,9 @@
 import React from 'react'
-import { List, Avatar, Icon } from 'antd';
+import { List, Card } from 'antd';
 import axios from 'axios';
+import imageAvatar from '../../assets/images/mslogo.jpg'
+
+const { Meta } = Card;
 
 const baseUrl = 'http://localhost:3002/api/vagas'
 export default class VagasList extends React.Component {
@@ -16,52 +19,30 @@ export default class VagasList extends React.Component {
       }
 
     render() {
-        const listData = this.state.map();
-        
-            listData.push({
-                href: 'http://ant.design',
-                title: 'Título da vaga',
-                avatar: 'https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png',
-                description: 'Ant Design, a design language for background applications, is refined by Ant UED Team.',
-                content: 'We supply a series of design principles, practical patterns and high quality design resources (Sketch and Axure), to help people create their product prototypes beautifully and efficiently.',
-            });
-
-        const IconText = ({ type, text }) => (
-            <span>
-                <Icon type={type} style={{ marginRight: 8 }} />
-                {text}
-            </span>
-        );
-
+        console.log(this.state.list);
+        const listData = this.state.list;
         return (
-            <List
-                style={{ marginLeft: 100, marginRight: 100 }}
-                itemLayout="vertical"
-                size="large"
-                pagination={{
-                    onChange: (page) => {
-                        console.log(page);
-                    },
-                    pageSize: 3,
-                }}
-                dataSource={listData}
-                footer={<div><b>ant design</b> footer part</div>}
-                renderItem={item => (
-                    <List.Item
-                        key={item.title}
-                        actions={[<IconText type="star-o" text="156" />, <IconText type="like-o" text="156" />, <IconText type="message" text="2" />]}
-                        extra={<img width={272} alt="logo" src="https://gw.alipayobjects.com/zos/rmsportal/mqaQswcyDLcXyDKnZfES.png" />}
+            <div style={{ marginLeft: 100, marginRight: 100 }}>
+            <br/>
+            <h1>Vagas disponíveis</h1>
+            <br/>
+                <List
+                    itemLayout="horizontal"
+                    dataSource={listData}
+                    renderItem={item => (
+                    <Card
+                        hoverable
+                        style={{ width: 240 }}
+                        cover={<img alt="example" src={imageAvatar} />}
                     >
-                        <List.Item.Meta
-                            avatar={<Avatar src={item.avatar} />}
-                            title={<a href={item.href}>{item.title}</a>}
-                            description={item.description}
+                        <Meta
+                        title={item.nomeCargo}
+                        description={`Contratação: ${item.tipoContratacao}`}
                         />
-                        {item.content}
-                    </List.Item>
+                    </Card>
                 )}
-            />
-
+                />
+            </div>
         );
     }
 }

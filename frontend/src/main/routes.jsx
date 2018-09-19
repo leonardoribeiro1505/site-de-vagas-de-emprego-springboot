@@ -9,7 +9,7 @@ import LoginForm from '../components/login/Form'
 export default props =>
     <HashRouter>
         <Switch>
-            <Route path="/vagasList" component={VagasList} />
+            <Route exact path="/" component={VagasList} />
             <Route path="/cadVagasForm" component={CadVagasForm} />
             <Route path="/loginForm" component={LoginForm} />
             <Route path="/about" component={About} />
