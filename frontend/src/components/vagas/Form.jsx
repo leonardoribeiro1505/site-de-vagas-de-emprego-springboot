@@ -129,7 +129,8 @@ class CadVagasForm extends React.Component {
             <InputNumber 
               style={{ width: 454 }}
               placeholder="Por favor informe o salário" 
-              type="number" />
+              formatter={value => `$ ${value}`.replace(/([0-9]{2})$/g, ",$1")}
+               />
           )}
         </FormItem>
         <FormItem
