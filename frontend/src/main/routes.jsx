@@ -13,6 +13,6 @@ export default props =>
             <Route path="/cadVagasForm" component={CadVagasForm} />
             <Route path="/loginForm" component={LoginForm} />
             <Route path="/about" component={About} />
-            <Route path="/details" component={DetailsVaga} />
+            <Route path="/details/:id" component={DetailsVaga} />
         </Switch>
     

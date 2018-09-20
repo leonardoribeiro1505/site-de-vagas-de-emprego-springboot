@@ -1,12 +1,18 @@
 import React from 'react'
 import { List } from 'antd';
+import axios from 'axios';
 
-const baseUrl = 'http://localhost:3002/api/vagas'
+const baseUrl = `http://localhost:3002/api/vagas`
 export default class DetailsVaga extends React.Component {
-    
-    render() {       
-        const data =  []
-        console.log(data);
+
+    state = {
+       
+    }    
+       
+    render() {
+                
+        const data = baseUrl
+        //console.log(this.props.match.params.id);
 
         return (
 
@@ -14,11 +20,11 @@ export default class DetailsVaga extends React.Component {
             <br/>
                 <h3 style={{ marginBottom: 16 }}>Detalhes da vaga</h3>
                 <List
-                    header={<div>Header</div>}
+                    header={<div>Cabeçalho</div>}
                     footer={<div>Footer</div>}
                     bordered
-                    dataSource={''}
-                    renderItem={item => (<List.Item>{}</List.Item>)}
+                    dataSource={data}
+                    renderItem={item => (<List.Item>{''}</List.Item>)}
                 />
             </div>
 
