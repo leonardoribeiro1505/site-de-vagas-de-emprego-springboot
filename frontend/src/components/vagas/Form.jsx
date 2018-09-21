@@ -1,7 +1,8 @@
 import React from 'react'
-import { Form, Input, Button, DatePicker, Select, InputNumber } from 'antd';
+import { Form, Input, Button, DatePicker, Select, InputNumber, Alert } from 'antd';
 import locale from 'antd/lib/date-picker/locale/pt_BR';
 import axios from 'axios';
+import PageHeader from '../../template/pageHeader'
 
 const FormItem = Form.Item;
 const Option = Select.Option;
@@ -24,13 +25,19 @@ const initialState = {
 class CadVagasForm extends React.Component {
  
     state = {
-      ...initialState
+      ...initialState,
+      showMessage: false,
+      title: 'Incluir uma nova vaga'
     }
 
     componentWillMount() {
       axios(baseUrl).then(resp => {
         this.setState({ list: resp.data })
       })
+    }
+
+    componentDidUpdate(){
+      document.title = this.state.title
     }
 
   clear = () => {
@@ -49,6 +56,7 @@ class CadVagasForm extends React.Component {
             const list = this.getUpdatedList(resp.data)
             this.setState({vaga: initialState.vagas, list})
           })
+          this.setState({showMessage: true})
           this.clear();
         }
       },
@@ -75,10 +83,13 @@ class CadVagasForm extends React.Component {
     const { getFieldDecorator } = this.props.form;
     return (
       <Form>
+        <PageHeader name={this.state.title}/>
+        {this.state.showMessage && <Alert 
+        message="Vaga cadastrada com sucesso!" 
+        type="success" 
+        showIcon 
+        closable={true} />}
         <br/>
-        <center>
-          <h1>Incluir uma nova vaga</h1>
-        </center>
         <FormItem {...formItemLayout} label="Cargo">
           {getFieldDecorator('nomeCargo', {
             rules: [{

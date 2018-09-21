@@ -1,32 +1,40 @@
 import React from 'react'
 import { Button, Modal, Form, Input, Icon, Checkbox } from 'antd';
 import CadLoginForm from './CadLoginForm'
+import PageHeader from '../../template/pageHeader'
 
 const FormItem = Form.Item;
 
 const CollectionCreateForm = Form.create()(
   class extends React.Component {
+    
     render() {
       const { visible, onCancel } = this.props;
       return (
         <Modal
-          visible={visible}
-          title="Cadastro de novo usuário"
-          okButtonDisabled={true}
-          cancelText="Fechar"
-          onCancel={onCancel}
+        visible={visible}
+        title="Cadastro de novo usuário"
+        okButtonDisabled={true}
+        cancelText="Fechar"
+        onCancel={onCancel}
         >
           <CadLoginForm />
         </Modal>
       );
     }
   }
-);
+  );
+  
+  class LoginForm extends React.Component {
+    
+    state = {
+      visible: false,
+      title: 'Login de usuário'
+    };
 
-class LoginForm extends React.Component {
-  state = {
-    visible: false,
-  };
+  componentDidUpdate(){
+    document.title = this.state.title
+  }
 
   clear = () => {
     this.props.form.resetFields();
@@ -53,10 +61,9 @@ class LoginForm extends React.Component {
     const { getFieldDecorator } = this.props.form;
     return (
       <center>
-        <br/>
+        <PageHeader name={this.state.title}/>
         <br/>
         <div style={{ width: 300 }} >
-        <h1>Login de usuário</h1>
           <Form onSubmit={this.handleSubmit} className="login-form">
             <FormItem>
               {getFieldDecorator('userName', {

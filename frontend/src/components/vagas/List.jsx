@@ -3,6 +3,7 @@ import { List, Card } from 'antd';
 import axios from 'axios';
 import imageAvatar from '../../assets/images/mslogo.jpg'
 import { Link } from 'react-router-dom'
+import PageHeader from '../../template/pageHeader'
 
 const { Meta } = Card;
 
@@ -19,29 +20,35 @@ export default class VagasList extends React.Component {
         })
       }
 
+      componentDidUpdate(){
+        document.title = 'Vagas de Emprego'
+      } 
+
     render() {
         const listData = this.state.list
         return (
             <center>
+                <PageHeader name='Vagas disponíveis'/>
                 <br/>
-                <h1>Vagas disponíveis</h1>
                 <br/>
-                    <List
-                        itemLayout="horizontal"
-                        dataSource={listData}
-                        renderItem={item => (
-                        <Card
-                            hoverable
-                            style={{ width: 240 }}
-                            cover={<Link to={`/details/${item._id}`}><img width="238" alt="imagemDaEmpresa" src={imageAvatar} /></Link>}
-                        >
-                            <Meta
-                            title={<Link to={`/details/${item._id}`}>{item.nomeCargo}</Link>}
-                            description={<Link to={`/details/${item._id}`}>Contratação: {item.tipoContratacao}</Link>}
-                            />
-                        </Card>
-                    )}
-                    />
+                <List
+                    grid={{ gutter: 16, column: 3 }}
+                    dataSource={listData}
+                    renderItem={item => (
+                        <List.Item>
+                            <Card
+                                hoverable
+                                style={{ width: 240 }}
+                                cover={<Link to={`/details/${item._id}`}><img width="238" alt="imagemDaEmpresa" src={imageAvatar} /></Link>}
+                            >
+                                <Meta
+                                title={<Link to={`/details/${item._id}`}>{item.nomeCargo}</Link>}
+                                description={<Link to={`/details/${item._id}`}>Contratação: {item.tipoContratacao}</Link>}
+                                />
+                            </Card>
+                        </List.Item>
+                )}
+                />
             </center>
         );
     }
