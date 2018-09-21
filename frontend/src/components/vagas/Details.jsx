@@ -23,13 +23,13 @@ export default class DetailsVaga extends React.Component {
     
     render() {        
         return (
-            <div>
+            <center>
                 <PageHeader name='Detalhes da vaga'/>
                 <div style={{ marginLeft: 100, marginRight: 100 }}>
                 <br/>
                 <Card
                     title={this.state.list.nomeCargo}
-                    style={{ width: 800, textAlign: 'justify' }}
+                    style={{ width: 900, textAlign: 'justify' }}
                     >
                     <p><strong>Tipo de contratação:</strong> {this.state.list.tipoContratacao}</p>
                     <p><strong>Carga horária: </strong>{this.state.list.cargaHoraria} horas semanais</p>
@@ -37,7 +37,7 @@ export default class DetailsVaga extends React.Component {
                     <p><strong>Descrição: </strong>{this.state.list.descricao}</p>
                 </Card>
                 </div>
-            </div>
+            </center>
 
         );
     }
