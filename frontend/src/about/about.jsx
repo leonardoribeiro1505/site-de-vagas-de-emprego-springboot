@@ -20,7 +20,10 @@ export default props =>
                 <Col span={6}>
                     <Card
                         style={{ width: 300, marginTop: 16 }}
-                        actions={[<Icon type="linkedin" />, <Icon type="facebook" />, <Icon type="mail" />]}
+                        actions={[
+                            <a href="http://www.linkedin.com/in/leonardo-ribeiro-as/" target="blank"><Icon type="linkedin" /></a>, 
+                        <a href="http://github.com/leonardoribeiro1986" target="blank"><Icon type="github" /></a>, 
+                        <Icon type="mail" />]}
                     >
                         <Meta
                             avatar={<Avatar src={imageAvatar} size={64}/>}
@@ -32,7 +35,7 @@ export default props =>
                 <Col span={6}>
                 <Card
                         style={{ width: 300, marginTop: 16 }}
-                        actions={[<Icon type="linkedin" />, <Icon type="facebook" />, <Icon type="mail" />]}
+                        actions={[<Icon type="linkedin" />, <Icon type="github" />, <Icon type="mail" />]}
                     >
                         <Meta
                             avatar={<Avatar src={imageAvatar} size={64} />}
@@ -44,7 +47,7 @@ export default props =>
                 <Col span={6}>
                 <Card
                         style={{ width: 300, marginTop: 16 }}
-                        actions={[<Icon type="linkedin" />, <Icon type="facebook" />, <Icon type="mail" />]}
+                        actions={[<Icon type="linkedin" />, <Icon type="github" />, <Icon type="mail" />]}
                     >
                         <Meta
                             avatar={<Avatar src={imageAvatar} size={64} />}
@@ -56,7 +59,7 @@ export default props =>
                 <Col span={6}>
                 <Card
                         style={{ width: 300, marginTop: 16 }}
-                        actions={[<Icon type="linkedin" />, <Icon type="facebook" />, <Icon type="mail" />]}
+                        actions={[<Icon type="linkedin" />, <Icon type="github" />, <Icon type="mail" />]}
                     >
                         <Meta
                             avatar={<Avatar src={imageAvatar} size={64} />}
