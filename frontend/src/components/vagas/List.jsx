@@ -38,8 +38,8 @@ export default class VagasList extends React.Component {
                         <List.Item>
                             <Card
                                 hoverable
-                                style={{ width: 240 }}
-                                cover={<Link to={`/details/${item._id}`}><img width="238" alt="imagemDaEmpresa" src={imageAvatar} /></Link>}
+                                style={{ width: 300 }}
+                                cover={<Link to={`/details/${item._id}`}><img width="298" alt="imagemDaEmpresa" src={imageAvatar} /></Link>}
                             >
                                 <Meta
                                 title={<Link to={`/details/${item._id}`}>{item.nomeCargo}</Link>}
