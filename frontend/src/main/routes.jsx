@@ -4,7 +4,7 @@ import { Route, Switch } from 'react-router-dom'
 import VagasList from '../components/vagas/List'
 import CadVagasForm from '../components/vagas/Form'
 import About from '../about/about'
-import LoginForm from '../components/login/Form'
+import LoginForm from '../components/auth/Form'
 import DetailsVaga from '../components/vagas/Details'
 
 export default props =>
