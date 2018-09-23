@@ -8,8 +8,8 @@ const FormItem = Form.Item;
 const Option = Select.Option;
 
 const formItemLayout = {
-  labelCol: { span: 9 },
-  wrapperCol: { span: 8 },
+  labelCol: { span: 8 },
+  wrapperCol: { span: 9 },
 };
 const formTailLayout = {
   labelCol: { span: 4 },

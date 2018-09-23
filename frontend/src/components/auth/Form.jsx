@@ -63,8 +63,7 @@ const CollectionCreateForm = Form.create()(
       <center>
         <PageHeader name={this.state.title}/>
         <br/>
-        <div style={{ width: 300 }} >
-          <Form onSubmit={this.handleSubmit} className="login-form">
+          <Form onSubmit={this.handleSubmit} className="login-form" style={{ width: 300 }}>
             <FormItem>
               {getFieldDecorator('userName', {
                 rules: [{
@@ -101,7 +100,6 @@ const CollectionCreateForm = Form.create()(
             visible={this.state.visible}
             onCancel={this.handleCancel}
           />
-        </div>
       </center>
     );
   }

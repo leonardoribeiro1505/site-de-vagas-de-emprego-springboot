@@ -6,7 +6,7 @@ import PageFooter from '../template/pageFooter'
 
 export default class App extends React.Component {
     render() {
-        return (            
+        return (        
             <BrowserRouter>
                 <div className="container">
                     <MenuNav />
