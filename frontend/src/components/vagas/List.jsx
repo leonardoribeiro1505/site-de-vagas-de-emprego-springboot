@@ -7,7 +7,7 @@ import PageHeader from '../../template/pageHeader'
 
 const { Meta } = Card;
 
-const baseUrl = 'http://localhost:3002/api/vagas'
+const baseUrl = 'http://localhost:3002/oapi/vagas'
 export default class VagasList extends React.Component {
 
     state = {

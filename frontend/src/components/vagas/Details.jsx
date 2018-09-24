@@ -3,7 +3,7 @@ import { Card } from 'antd';
 import axios from 'axios';
 import PageHeader from '../../template/pageHeader'
 
-const baseUrl = `http://localhost:3002/api/vagas`
+const baseUrl = `http://localhost:3002/oapi/vagas`
 export default class DetailsVaga extends React.Component {
     
     state = {

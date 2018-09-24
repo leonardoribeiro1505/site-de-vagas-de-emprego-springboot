@@ -28,7 +28,7 @@ class CadVagasForm extends React.Component {
       ...initialState,
       showMessage: false,
       title: 'Incluir uma nova vaga'
-    }
+    }    
 
     componentWillMount() {
       axios(baseUrl).then(resp => {

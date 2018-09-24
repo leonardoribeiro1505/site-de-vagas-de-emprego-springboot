@@ -6,7 +6,7 @@ const FormItem = Form.Item;
 const Option = Select.Option;
 const AutoCompleteOption = AutoComplete.Option;
 
-const baseUrl = 'http://localhost:3002/api/usuarios'
+const baseUrl = 'http://localhost:3002/oapi/usuarios'
 const initialState = {
   usuarios: {email: '', senha: '', telefone: '', website: ''}
 }
