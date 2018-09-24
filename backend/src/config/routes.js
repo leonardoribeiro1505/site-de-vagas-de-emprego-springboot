@@ -11,15 +11,16 @@ module.exports = function(server) {
 
     protectedApi.use(auth)
     
-    //VAGAS Routes
-    const vagasService = require('../api/vagas/vagasService')
-    vagasService.register(protectedApi, '/vagas')
-
+    
     /*
     * Rotas abertas
     */
     const openApi = express.Router()
     server.use('/oapi', openApi)
+    
+    //VAGAS Routes
+    const vagasService = require('../api/vagas/vagasService')
+    vagasService.register(openApi, '/vagas')
 
     const AuthService = require('../api/user/authService')
     openApi.post('/login', AuthService.login)
