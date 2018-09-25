@@ -2,9 +2,8 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { logout } from '../components/auth/authActions'
-import { Card, Avatar } from 'antd'
+import { Avatar, Popover, Button } from 'antd'
 
-const { Meta } = Card;
 class Navbar extends Component {
     constructor(props) {
         super(props)
@@ -18,17 +17,18 @@ class Navbar extends Component {
     render() {
         const { email } = this.props.user
         return (
-            <Card
-                title={email}
-                extra={<a href="" onClick={this.props.logout}>Sair</a>}
-                style={{ width: 300 }}
-            >
-            <Meta
-              avatar={<Avatar icon="user" />}
-              title="Card title"
-              description="This is the description"
-            />
-            </Card>
+            <content style={{ float: 'right' }}>
+            <Popover
+                content={<a href="" onClick={this.props.logout}>Sair</a>} 
+                title={email} 
+                trigger="click">
+                <Avatar icon="user" />
+                <Button>
+                    {email}
+                </Button>
+            </Popover>
+
+            </content>
         )
     }
 }

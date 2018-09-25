@@ -1,5 +1,10 @@
 import React from 'react'
 import { Button, Modal, Form, Input, Icon, Checkbox } from 'antd';
+import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
+
+import { login, signup } from './authActions'
+import Messages from '../../template/msg/messages'
 import CadLoginForm from './CadLoginForm'
 import PageHeader from '../../template/pageHeader'
 
@@ -17,6 +22,7 @@ const CollectionCreateForm = Form.create()(
         okButtonDisabled={true}
         cancelText="Fechar"
         onCancel={onCancel}
+        footer={null}
         >
           <CadLoginForm />
         </Modal>
@@ -26,11 +32,24 @@ const CollectionCreateForm = Form.create()(
   );
   
   class LoginForm extends React.Component {
+      constructor(props) {
+        super(props)
+        this.state = {loginMode: true}
+      }
     
     state = {
       visible: false,
       title: 'Login de usuário'
     };
+
+    changeMode() {
+      this.setState({ loginMode: !this.state.loginMode })
+    }
+
+      onSubmit(values) {
+        const { login, signup } = this.props
+        this.state.loginMode ? login(values) : signup(values)
+      }
 
   componentDidUpdate(){
     document.title = this.state.title
