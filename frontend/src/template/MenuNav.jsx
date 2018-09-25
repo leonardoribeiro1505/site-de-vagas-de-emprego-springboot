@@ -1,6 +1,7 @@
 import React from 'react'
 import { Menu, Icon } from 'antd'
 import { Link } from 'react-router-dom'
+import NavBar from '../template/NavBar'
 
 export default class MenuNav extends React.Component {
 
@@ -41,6 +42,8 @@ export default class MenuNav extends React.Component {
               Sobre
             </Link>
           </Menu.Item>
+
+          <NavBar />
         </Menu>
       </div>
     );

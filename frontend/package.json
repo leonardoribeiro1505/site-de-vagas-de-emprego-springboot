@@ -18,7 +18,8 @@
     "eject": "react-scripts eject"
   },
   "devDependencies": {
-    "react-redux": "^5.0.7",
-    "redux": "^4.0.0"
+    "react-redux": "4.4.6",
+    "react-redux-toastr": "4.4.2",
+    "redux": "3.6.0"
   }
 }
