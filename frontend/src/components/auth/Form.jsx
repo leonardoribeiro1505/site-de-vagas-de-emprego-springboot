@@ -31,7 +31,7 @@ const CollectionCreateForm = Form.create()(
   }
   );
   
-  class LoginForm extends React.Component {
+  class Auth extends React.Component {
       constructor(props) {
         super(props)
         this.state = {loginMode: true}
@@ -42,22 +42,18 @@ const CollectionCreateForm = Form.create()(
       title: 'Login de usuário'
     };
 
-    changeMode() {
-      this.setState({ loginMode: !this.state.loginMode })
-    }
+  changeMode() {
+    this.setState({ loginMode: !this.state.loginMode })
+  }
 
-      onSubmit(values) {
-        const { login, signup } = this.props
-        this.state.loginMode ? login(values) : signup(values)
-      }
+    onSubmit(values) {
+      const { login, signup } = this.props
+      login(values)
+  }
 
   componentDidUpdate(){
     document.title = this.state.title
-  }
-
-  clear = () => {
-    this.props.form.resetFields();
-  }
+  }  
 
   showModal = () => {
     this.setState({ visible: true });
@@ -67,10 +63,11 @@ const CollectionCreateForm = Form.create()(
     this.setState({ visible: false });
   }
 
-  login = (e) => {
+  handleSubmit = (e) => {
     e.preventDefault();
     this.props.form.validateFields((err, values) => {
       if (!err) {
+        this.onsubmit(values)
         console.log('Received values of form: ', values);
       }
     });
@@ -78,6 +75,8 @@ const CollectionCreateForm = Form.create()(
 
   render() {
     const { getFieldDecorator } = this.props.form;
+    const { loginMode } = this.state 
+    const { handleSubmit } = this.props
     return (
       <center>
         <PageHeader name={this.state.title}/>
@@ -108,7 +107,7 @@ const CollectionCreateForm = Form.create()(
               )}
               <a className="login-form-forgot" href="">Esqueceu a senha</a>
               <br/>
-              <Button style={{ width: 300 }} type="primary" onClick={e => this.login(e)}>
+              <Button style={{ width: 300 }} type="primary" htmlType="submit">
                 Entrar
               </Button>
               <br/>
@@ -124,4 +123,6 @@ const CollectionCreateForm = Form.create()(
   }
 }
 
-export default Form.create()(LoginForm);
+const mapDispatchToProps = dispatch => bindActionCreators({ login, signup }, dispatch)
+Auth = Form.create()(Auth)
+export default connect(null, mapDispatchToProps)(Auth)

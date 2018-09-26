@@ -1,6 +1,9 @@
 import React from 'react'
 import { Form, Input, Select, Button, AutoComplete } from 'antd';
 import axios from 'axios';
+import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
+import { login, signup } from './authActions'
 
 const FormItem = Form.Item;
 const Option = Select.Option;
@@ -17,19 +20,18 @@ class CadLoginForm extends React.Component {
     autoCompleteResult: [],
     ...initialState
   };
+
+  onSubmit(values) {
+    const { login, signup } = this.props
+    login(values)
+}
   
   handleSubmit = (e) => {
     e.preventDefault();
     this.props.form.validateFieldsAndScroll((err, values) => {
       if (!err) {
-        const usuario = this.state.usuarios
-        const method = usuario.id ? 'put' : 'post'
-        const url = usuario.id ? `${baseUrl}/${usuario.id}` : baseUrl
-        axios[method](url, values)
-        .then(resp => {
-          this.setState({usuario: initialState.usuarios})
-        })
-        this.clear();
+        this.onSubmit(values)
+        this.clear()
       }
     });
   }
@@ -191,4 +193,6 @@ class CadLoginForm extends React.Component {
   }
 }
 
-export default Form.create()(CadLoginForm);
+const mapDispatchToProps = dispatch => bindActionCreators({ login, signup }, dispatch)
+CadLoginForm = Form.create()(CadLoginForm)
+export default connect(null, mapDispatchToProps)(CadLoginForm)

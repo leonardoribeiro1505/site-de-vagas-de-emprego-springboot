@@ -1,6 +1,6 @@
 const userKey = '_vagas_user'
 const INITIAL_STATE = {
-    user: {email: 'leo.ribeiro.as@gmail.com'},//JSON.parse(localStorage.getItem(userKey)),
+    user: JSON.parse(localStorage.getItem(userKey)),
     validToken: false
 }
 

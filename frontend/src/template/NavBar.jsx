@@ -18,16 +18,15 @@ class Navbar extends Component {
         const { email } = this.props.user
         return (
             <content style={{ float: 'right' }}>
-            <Popover
-                content={<a href="" onClick={this.props.logout}>Sair</a>} 
-                title={email} 
-                trigger="click">
-                <Avatar icon="user" />
-                <Button>
-                    {email}
-                </Button>
-            </Popover>
-
+                <Popover
+                    content={<a href="" onClick={this.props.logout}>Sair</a>} 
+                    title={email} 
+                    trigger="click">
+                    <Avatar icon="user" />
+                    <Button>
+                        {email}
+                    </Button>
+                </Popover>
             </content>
         )
     }
