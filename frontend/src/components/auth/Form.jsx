@@ -46,9 +46,9 @@ const CollectionCreateForm = Form.create()(
     this.setState({ loginMode: !this.state.loginMode })
   }
 
-    onSubmit(values) {
-      const { login, signup } = this.props
-      login(values)
+  onSubmit(values) {
+    const { login, signup } = this.props
+    login(values)
   }
 
   componentDidUpdate(){
@@ -63,7 +63,7 @@ const CollectionCreateForm = Form.create()(
     this.setState({ visible: false });
   }
 
-  handleSubmit = (e) => {
+  login = (e) => {
     e.preventDefault();
     this.props.form.validateFields((err, values) => {
       if (!err) {
@@ -81,7 +81,7 @@ const CollectionCreateForm = Form.create()(
       <center>
         <PageHeader name={this.state.title}/>
         <br/>
-          <Form onSubmit={this.handleSubmit} className="login-form" style={{ width: 300 }}>
+          <Form onSubmit={handleSubmit(v => this.login(v))} className="login-form" style={{ width: 300 }}>
             <FormItem>
               {getFieldDecorator('userName', {
                 rules: [{
@@ -118,11 +118,12 @@ const CollectionCreateForm = Form.create()(
             visible={this.state.visible}
             onCancel={this.handleCancel}
           />
+          <Messages />
       </center>
     );
   }
 }
 
-const mapDispatchToProps = dispatch => bindActionCreators({ login, signup }, dispatch)
 Auth = Form.create()(Auth)
+const mapDispatchToProps = dispatch => bindActionCreators({ login, signup }, dispatch)
 export default connect(null, mapDispatchToProps)(Auth)

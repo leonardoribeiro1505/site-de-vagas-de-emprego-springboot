@@ -5,14 +5,6 @@ import { logout } from '../components/auth/authActions'
 import { Avatar, Popover, Button } from 'antd'
 
 class Navbar extends Component {
-    constructor(props) {
-        super(props)
-        this.state = { open: false }
-    }
-
-    changeOpen() {
-        this.setState({ open: !this.state.open })
-    }
 
     render() {
         const { email } = this.props.user
