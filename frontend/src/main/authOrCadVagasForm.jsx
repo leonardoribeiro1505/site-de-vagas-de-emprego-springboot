@@ -6,6 +6,7 @@ import { bindActionCreators } from 'redux'
 import CadVagasForm from '../components/vagas/Form'
 import Auth from '../components/auth/Form'
 import { validateToken } from '../components/auth/authActions'
+import { isAuthenticated } from '../components/auth/auth'
 
 class AuthOrCadVagasForm extends Component {
 

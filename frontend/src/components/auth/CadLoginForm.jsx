@@ -1,30 +1,45 @@
 import React from 'react'
-import { Form, Input, Select, Button, AutoComplete } from 'antd';
-import { connect } from 'react-redux'
-import { bindActionCreators } from 'redux'
-import { login } from './authActions'
+import { Form, Input, Select, Button, AutoComplete } from 'antd'
+import api from './api'
+import axios from 'axios'
 
 const FormItem = Form.Item;
 const Option = Select.Option;
 const AutoCompleteOption = AutoComplete.Option;
 
+const baseUrl = 'http://localhost:3002/oapi/signup'
 class CadLoginForm extends React.Component {
 
   state = {
     confirmDirty: false,
     autoCompleteResult: [],
-  };
+    name: "",
+    email: "",
+    password: "",
+    telefone: "",
+    website: "",
+    error: ""
+  }
 
-  onSubmit(values) {
-    const { login } = this.props
-    login(values)
-}
-  
-  handleSubmit = (e) => {
+  handleSignUp = () => {
+    this.props.form.validateFields(
+      (err, value) => {
+        if (!err) {
+          const method = 'post'
+          const url = baseUrl
+          axios[method](url, value)
+          
+        }
+      },
+    );
+    
+  }
+
+  handleSubimit = e => {
     e.preventDefault();
     this.props.form.validateFieldsAndScroll((err, values) => {
       if (!err) {
-        this.onSubmit(values)
+        this.handleSignUp(values)
       }
     });
   }
@@ -32,7 +47,7 @@ class CadLoginForm extends React.Component {
   clear = () => {
     this.props.form.resetFields();
   }
-  
+
   handleCancel = () => {
     this.setState({ visible: false });
   }
@@ -109,15 +124,16 @@ class CadLoginForm extends React.Component {
     ));
 
     return (
-      <Form onSubmit={this.onSubmit}>
-      <FormItem
+      <Form onSubmit={this.handleSignUp}>
+        {this.state.error && <p>{this.state.error}</p>}
+        <FormItem
           {...formItemLayout}
           label="Nome da empresa"
         >
           {getFieldDecorator('name', {
             rules: [{ required: true, message: 'Por favor informe o nome da empresa!' }],
-          })(            
-              <Input />
+          })(
+            <Input />
           )}
         </FormItem>
         <FormItem
@@ -189,13 +205,11 @@ class CadLoginForm extends React.Component {
           )}
         </FormItem>
         <FormItem {...tailFormItemLayout}>
-          <Button type="primary" htmlType="submit">Cadastrar</Button>
+          <Button type="primary" htmlType="submit">Cadastrar grátis</Button>
         </FormItem>
       </Form>
     );
   }
 }
 
-//const mapDispatchToProps = dispatch => bindActionCreators({ login }, dispatch)
-CadLoginForm = Form.create()(CadLoginForm)
-export default CadLoginForm
+export default CadLoginForm = Form.create()(CadLoginForm)

@@ -1,10 +1,5 @@
 import React from 'react'
 import { Button, Modal, Form, Input, Icon, Checkbox } from 'antd';
-import { connect } from 'react-redux'
-import { bindActionCreators } from 'redux'
-
-import { login, signup } from './authActions'
-import Messages from '../../template/msg/messages'
 import CadLoginForm from './CadLoginForm'
 import PageHeader from '../../template/pageHeader'
 
@@ -112,12 +107,9 @@ const CollectionCreateForm = Form.create()(
             visible={this.state.visible}
             onCancel={this.handleCancel}
           />
-          <Messages />
       </center>
     );
   }
 }
 
-Auth = Form.create()(Auth)
-const mapDispatchToProps = dispatch => bindActionCreators({ login, signup }, dispatch)
-export default connect(null, mapDispatchToProps)(Auth)
+export default Auth = Form.create()(Auth)

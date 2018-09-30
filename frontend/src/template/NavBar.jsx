@@ -1,10 +1,7 @@
 import React, { Component } from 'react'
-import { connect } from 'react-redux'
-import { bindActionCreators } from 'redux'
-import { logout } from '../components/auth/authActions'
 import { Avatar, Popover, Button } from 'antd'
 
-class Navbar extends Component {
+export default class Navbar extends Component {
 
     render() {
         const { email } = this.props.user || {}
@@ -23,6 +20,3 @@ class Navbar extends Component {
         )
     }
 }
-const mapStateToProps = state => ({ user: state.auth.user })
-const mapDispatchToProps = dispatch => bindActionCreators({ logout }, dispatch)
-export default connect(mapStateToProps, mapDispatchToProps)(Navbar)
