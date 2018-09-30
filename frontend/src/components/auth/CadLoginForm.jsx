@@ -1,28 +1,22 @@
 import React from 'react'
 import { Form, Input, Select, Button, AutoComplete } from 'antd';
-import axios from 'axios';
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import { login, signup } from './authActions'
+import { login } from './authActions'
 
 const FormItem = Form.Item;
 const Option = Select.Option;
 const AutoCompleteOption = AutoComplete.Option;
 
-const baseUrl = 'http://localhost:3002/oapi/usuarios'
-const initialState = {
-  usuarios: {email: '', senha: '', telefone: '', website: ''}
-}
 class CadLoginForm extends React.Component {
 
   state = {
     confirmDirty: false,
     autoCompleteResult: [],
-    ...initialState
   };
 
   onSubmit(values) {
-    const { login, signup } = this.props
+    const { login } = this.props
     login(values)
 }
   
@@ -31,7 +25,6 @@ class CadLoginForm extends React.Component {
     this.props.form.validateFieldsAndScroll((err, values) => {
       if (!err) {
         this.onSubmit(values)
-        this.clear()
       }
     });
   }
@@ -51,7 +44,7 @@ class CadLoginForm extends React.Component {
 
   compareToFirstPassword = (rule, value, callback) => {
     const form = this.props.form;
-    if (value && value !== form.getFieldValue('senha')) {
+    if (value && value !== form.getFieldValue('password')) {
       callback('Esta senha não confere com a anterior!');
     } else {
       callback();
@@ -116,7 +109,17 @@ class CadLoginForm extends React.Component {
     ));
 
     return (
-      <Form onSubmit={this.handleSubmit}>
+      <Form onSubmit={this.onSubmit}>
+      <FormItem
+          {...formItemLayout}
+          label="Nome da empresa"
+        >
+          {getFieldDecorator('name', {
+            rules: [{ required: true, message: 'Por favor informe o nome da empresa!' }],
+          })(            
+              <Input />
+          )}
+        </FormItem>
         <FormItem
           {...formItemLayout}
           label="E-mail"
@@ -135,7 +138,7 @@ class CadLoginForm extends React.Component {
           {...formItemLayout}
           label="Senha"
         >
-          {getFieldDecorator('senha', {
+          {getFieldDecorator('password', {
             rules: [{
               required: true, message: 'Por favor insira sua senha!',
             }, {
@@ -193,6 +196,6 @@ class CadLoginForm extends React.Component {
   }
 }
 
-const mapDispatchToProps = dispatch => bindActionCreators({ login, signup }, dispatch)
+//const mapDispatchToProps = dispatch => bindActionCreators({ login }, dispatch)
 CadLoginForm = Form.create()(CadLoginForm)
-export default connect(null, mapDispatchToProps)(CadLoginForm)
+export default CadLoginForm

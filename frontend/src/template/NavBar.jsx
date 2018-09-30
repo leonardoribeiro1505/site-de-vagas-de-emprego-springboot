@@ -7,7 +7,7 @@ import { Avatar, Popover, Button } from 'antd'
 class Navbar extends Component {
 
     render() {
-        const { email } = this.props.user
+        const { email } = this.props.user || {}
         return (
             <content style={{ float: 'right' }}>
                 <Popover

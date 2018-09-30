@@ -32,10 +32,6 @@ const CollectionCreateForm = Form.create()(
   );
   
   class Auth extends React.Component {
-      constructor(props) {
-        super(props)
-        this.state = {loginMode: true}
-      }
     
     state = {
       visible: false,
@@ -47,12 +43,12 @@ const CollectionCreateForm = Form.create()(
   }
 
   onSubmit(values) {
-    const { login, signup } = this.props
+    const { login } = this.props
     login(values)
   }
 
   componentDidUpdate(){
-    document.title = this.state.title
+    document.title = 'Login de usuário'
   }  
 
   showModal = () => {
@@ -63,25 +59,23 @@ const CollectionCreateForm = Form.create()(
     this.setState({ visible: false });
   }
 
-  login = (e) => {
+  logar = (e) => {
     e.preventDefault();
     this.props.form.validateFields((err, values) => {
       if (!err) {
-        this.onsubmit(values)
-        console.log('Received values of form: ', values);
+        this.onSubmit(values)
+        console.log('Dador recebidos do form: ', values);
       }
     });
   }
 
   render() {
     const { getFieldDecorator } = this.props.form;
-    const { loginMode } = this.state 
-    const { handleSubmit } = this.props
     return (
       <center>
-        <PageHeader name={this.state.title}/>
+        <PageHeader name={'Login de usuário'}/>
         <br/>
-          <Form onSubmit={handleSubmit(v => this.login(v))} className="login-form" style={{ width: 300 }}>
+          <Form onSubmit={this.onSubmit} className="login-form" style={{ width: 300 }}>
             <FormItem>
               {getFieldDecorator('userName', {
                 rules: [{
