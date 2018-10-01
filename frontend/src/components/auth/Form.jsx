@@ -2,6 +2,8 @@ import React from 'react'
 import { Button, Modal, Form, Input, Icon, Checkbox } from 'antd';
 import CadLoginForm from './CadLoginForm'
 import PageHeader from '../../template/pageHeader'
+import api from './api'
+import { login } from './auth'
 
 const FormItem = Form.Item;
 
@@ -30,16 +32,28 @@ const CollectionCreateForm = Form.create()(
     
     state = {
       visible: false,
-      title: 'Login de usuário'
+      title: 'Login de usuário',
+      email: '',
+      password: '',
+      error: ''
     };
 
   changeMode() {
     this.setState({ loginMode: !this.state.loginMode })
   }
 
-  onSubmit(values) {
-    const { login } = this.props
-    login(values)
+  handleSignIn = () => {
+    this.props.form.validateFields(
+      (err, value) => {
+        if (!err) {
+          const response = api.post("/login", value)
+          //console.log('Response: ', login(response.data.token))
+          login(response.data.token)
+
+        }
+      },
+    );
+    
   }
 
   componentDidUpdate(){
@@ -54,11 +68,11 @@ const CollectionCreateForm = Form.create()(
     this.setState({ visible: false });
   }
 
-  logar = (e) => {
+  handleSubimit = (e) => {
     e.preventDefault();
     this.props.form.validateFields((err, values) => {
       if (!err) {
-        this.onSubmit(values)
+        this.handleSignIn(values)
         console.log('Dador recebidos do form: ', values);
       }
     });
@@ -70,9 +84,9 @@ const CollectionCreateForm = Form.create()(
       <center>
         <PageHeader name={'Login de usuário'}/>
         <br/>
-          <Form onSubmit={this.onSubmit} className="login-form" style={{ width: 300 }}>
+          <Form onSubmit={this.handleSignIn} className="login-form" style={{ width: 300 }}>
             <FormItem>
-              {getFieldDecorator('userName', {
+              {getFieldDecorator('email', {
                 rules: [{
                   type: 'email', 
                   required: true, message: 'Por favor insira seu e-mail!' }],
