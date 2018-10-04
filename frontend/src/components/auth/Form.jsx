@@ -47,7 +47,7 @@ const CollectionCreateForm = Form.create()(
       (err, value) => {
         if (!err) {
           api.post("/login", value).then(response => {
-            login(response.data.token)
+            login(response.data)
               }
             )
         }
@@ -73,7 +73,7 @@ const CollectionCreateForm = Form.create()(
     this.props.form.validateFields((err, values) => {
       if (!err) {
         this.handleSignIn(values)
-        console.log('Dador recebidos do form: ', values);
+        //window.location.reload()
       }
     });
   }
