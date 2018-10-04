@@ -46,10 +46,10 @@ const CollectionCreateForm = Form.create()(
     this.props.form.validateFields(
       (err, value) => {
         if (!err) {
-          const response = api.post("/login", value)
-          //console.log('Response: ', login(response.data.token))
-          login(response.data.token)
-
+          api.post("/login", value).then(response => {
+            login(response.data.token)
+              }
+            )
         }
       },
     );
@@ -84,7 +84,7 @@ const CollectionCreateForm = Form.create()(
       <center>
         <PageHeader name={'Login de usuário'}/>
         <br/>
-          <Form onSubmit={this.handleSignIn} className="login-form" style={{ width: 300 }}>
+          <Form onSubmit={this.handleSubimit} className="login-form" style={{ width: 300 }}>
             <FormItem>
               {getFieldDecorator('email', {
                 rules: [{
