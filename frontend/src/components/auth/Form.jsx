@@ -4,6 +4,7 @@ import CadLoginForm from './CadLoginForm'
 import PageHeader from '../../template/pageHeader'
 import api from './api'
 import { login } from './auth'
+import { withRouter } from 'react-router-dom'
 
 const FormItem = Form.Item;
 
@@ -51,6 +52,7 @@ const CollectionCreateForm = Form.create()(
               }
             )
         }
+        this.props.history.push("/");
       },
     );
     
@@ -127,3 +129,4 @@ const CollectionCreateForm = Form.create()(
 }
 
 export default Auth = Form.create()(Auth)
+withRouter(Auth)

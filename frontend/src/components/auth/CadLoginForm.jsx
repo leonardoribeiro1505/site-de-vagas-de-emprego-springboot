@@ -1,6 +1,7 @@
 import React from 'react'
 import { Form, Input, Select, Button, AutoComplete } from 'antd'
 import api from './api'
+import { withRouter } from 'react-router-dom'
 
 const FormItem = Form.Item;
 const Option = Select.Option;
@@ -24,10 +25,9 @@ class CadLoginForm extends React.Component {
       (err, value) => {
         if (!err) {
           api.post("/signup", value);
-          window.location.reload();
         }
       },
-    );
+      );
     
   }
 
@@ -106,6 +106,7 @@ class CadLoginForm extends React.Component {
         },
       },
     };
+
     const prefixSelector = getFieldDecorator('prefix', {
       initialValue: '85',
     })(
