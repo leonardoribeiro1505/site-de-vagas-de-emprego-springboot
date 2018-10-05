@@ -16,7 +16,7 @@ const formTailLayout = {
   wrapperCol: { span: 8, offset: 9 },
 };
 
-const baseUrl = 'http://localhost:3002/api/vagas'
+const baseUrl = 'http://localhost:3002/oapi/vagas'
 const initialState = {
   vagas: {nomeCargo: '', tipoContratacao: '', cargaHoraria: '', salario: '', inicioExibicao: '', fimExibicao: '', descricao: ''},
   list: []

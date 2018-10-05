@@ -1,7 +1,6 @@
 import React from 'react'
 import { Form, Input, Select, Button, AutoComplete } from 'antd'
 import api from './api'
-import { withRouter } from 'react-router-dom'
 
 const FormItem = Form.Item;
 const Option = Select.Option;
@@ -11,24 +10,18 @@ class CadLoginForm extends React.Component {
 
   state = {
     confirmDirty: false,
-    autoCompleteResult: [],
-    name: "",
-    email: "",
-    password: "",
-    telefone: "",
-    website: "",
-    error: ""
+    autoCompleteResult: []
   }
 
   handleSignUp = () => {
     this.props.form.validateFields(
       (err, value) => {
         if (!err) {
-          api.post("/signup", value);
+          api.post("/signup", value)
         }
       },
-      );
-    
+    );
+    window.location.reload()
   }
 
   handleSubimit = e => {
@@ -122,7 +115,6 @@ class CadLoginForm extends React.Component {
 
     return (
       <Form onSubmit={this.handleSubimit}>
-        {this.state.error && <p>{this.state.error}</p>}
         <FormItem
           {...formItemLayout}
           label="Nome da empresa"

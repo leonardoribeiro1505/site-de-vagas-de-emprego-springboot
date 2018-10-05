@@ -33,10 +33,7 @@ const CollectionCreateForm = Form.create()(
     
     state = {
       visible: false,
-      title: 'Login de usuário',
-      email: '',
-      password: '',
-      error: ''
+      title: 'Login de usuário'
     };
 
   changeMode() {
