@@ -41,6 +41,8 @@ const signup = (req, res, next) => {
     const name = req.body.name || ''
     const email = req.body.email || ''
     const password = req.body.password || ''
+    const telefone = req.body.telefone || ''
+    const website = req.body.website || ''
     //const confirmPassword = req.body.confirm_password || ''
 
     const salt = bcrypt.genSaltSync()
@@ -55,7 +57,7 @@ const signup = (req, res, next) => {
         } else if (user) {
             return res.status(400).send({ errors: ['Usuário já cadastrado.'] })
         } else {
-            const newUser = new User({ name, email, password: passwordHash })
+            const newUser = new User({ name, email, password: passwordHash, telefone, website })
             newUser.save(err => {
                 if (err) {
                     return sendErrorsFromDB(res, err)

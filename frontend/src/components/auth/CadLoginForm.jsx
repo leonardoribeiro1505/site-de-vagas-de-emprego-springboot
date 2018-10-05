@@ -1,38 +1,27 @@
 import React from 'react'
 import { Form, Input, Select, Button, AutoComplete } from 'antd'
 import api from './api'
-import axios from 'axios'
 
 const FormItem = Form.Item;
 const Option = Select.Option;
 const AutoCompleteOption = AutoComplete.Option;
 
-const baseUrl = 'http://localhost:3002/oapi/signup'
 class CadLoginForm extends React.Component {
 
   state = {
     confirmDirty: false,
-    autoCompleteResult: [],
-    name: "",
-    email: "",
-    password: "",
-    telefone: "",
-    website: "",
-    error: ""
+    autoCompleteResult: []
   }
 
   handleSignUp = () => {
     this.props.form.validateFields(
       (err, value) => {
         if (!err) {
-          const method = 'post'
-          const url = baseUrl
-          axios[method](url, value)
-          
+          api.post("/signup", value)
         }
       },
     );
-    
+    window.location.reload()
   }
 
   handleSubimit = e => {
@@ -110,6 +99,7 @@ class CadLoginForm extends React.Component {
         },
       },
     };
+
     const prefixSelector = getFieldDecorator('prefix', {
       initialValue: '85',
     })(
@@ -124,8 +114,7 @@ class CadLoginForm extends React.Component {
     ));
 
     return (
-      <Form onSubmit={this.handleSignUp}>
-        {this.state.error && <p>{this.state.error}</p>}
+      <Form onSubmit={this.handleSubimit}>
         <FormItem
           {...formItemLayout}
           label="Nome da empresa"
