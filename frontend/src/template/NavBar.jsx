@@ -5,9 +5,10 @@ import { logout } from '../components/auth/auth'
 export default class Navbar extends Component {
 
     render() {
-        const email = localStorage.getItem("@email")        
+        const email = localStorage.getItem("@email")      
         return (
             <content style={{ float: 'right' }}>
+                { email? 
                 <Popover
                     content={<a href="" onClick={logout}>Sair</a>} 
                     title={email} 
@@ -17,6 +18,7 @@ export default class Navbar extends Component {
                         { !email? 'Off' : email }
                     </Button>
                 </Popover>
+                : ''}
             </content>
         )
     }
