@@ -72,7 +72,6 @@ const CollectionCreateForm = Form.create()(
     this.props.form.validateFields((err, values) => {
       if (!err) {
         this.handleSignIn(values)
-        //window.location.reload()
       }
     });
   }

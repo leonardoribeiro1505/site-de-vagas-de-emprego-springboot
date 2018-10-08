@@ -5,8 +5,7 @@ import { logout } from '../components/auth/auth'
 export default class Navbar extends Component {
 
     render() {
-        const email = localStorage.getItem("@email")
-        
+        const email = localStorage.getItem("@email")        
         return (
             <content style={{ float: 'right' }}>
                 <Popover
