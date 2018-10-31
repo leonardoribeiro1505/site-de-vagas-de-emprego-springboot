@@ -2,7 +2,7 @@ import React from 'react'
 import { Card, Icon } from 'antd';
 import axios from 'axios';
 
-const baseUrl = `http://localhost:3002/oapi/vagas`
+const baseUrl = `http://localhost:8080/vagas`
 export default class DetailsVaga extends React.Component {
     
     state = {

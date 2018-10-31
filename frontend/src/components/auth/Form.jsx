@@ -44,11 +44,12 @@ const CollectionCreateForm = Form.create()(
       (err, value) => {
         if (!err) {
           api.post("/login", value).then(response => {
-            login(response.data)
-              }
-            )
+            login(response)
+            console.log(response)
+          }
+          )
         }
-        this.props.history.push("/");
+        //this.props.history.push("/");
       },
     );
     
@@ -93,19 +94,19 @@ const CollectionCreateForm = Form.create()(
                 )}
               </FormItem>
               <FormItem>
-                {getFieldDecorator('password', {
+                {getFieldDecorator('senha', {
                   rules: [{ required: true, message: 'Por favor insira sua senha!' }],
                 })(
                   <Input prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />} type="password" placeholder="Senha" />
                 )}
               </FormItem>
               <FormItem>
-                {getFieldDecorator('remember', {
+                {/* {getFieldDecorator('remember', {
                   valuePropName: 'checked',
                   initialValue: true,
                 })(
                   <Checkbox>Lembrar</Checkbox>
-                )}
+                )} */}
                 <a className="login-form-forgot" href="">Esqueceu a senha</a>
                 <br/>
                 <Button style={{ width: 320 }} type="primary" htmlType="submit">

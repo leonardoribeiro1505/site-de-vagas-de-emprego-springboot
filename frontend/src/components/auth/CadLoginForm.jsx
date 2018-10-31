@@ -17,7 +17,7 @@ class CadLoginForm extends React.Component {
     this.props.form.validateFields(
       (err, value) => {
         if (!err) {
-          api.post("/signup", value)
+          api.post("/usuarios", value)
         }
       },
     );
@@ -48,7 +48,7 @@ class CadLoginForm extends React.Component {
 
   compareToFirstPassword = (rule, value, callback) => {
     const form = this.props.form;
-    if (value && value !== form.getFieldValue('password')) {
+    if (value && value !== form.getFieldValue('senha')) {
       callback('Esta senha não confere com a anterior!');
     } else {
       callback();
@@ -119,7 +119,7 @@ class CadLoginForm extends React.Component {
           {...formItemLayout}
           label="Nome da empresa"
         >
-          {getFieldDecorator('name', {
+          {getFieldDecorator('nome', {
             rules: [{ required: true, message: 'Por favor informe o nome da empresa!' }],
           })(
             <Input />
@@ -143,7 +143,7 @@ class CadLoginForm extends React.Component {
           {...formItemLayout}
           label="Senha"
         >
-          {getFieldDecorator('password', {
+          {getFieldDecorator('senha', {
             rules: [{
               required: true, message: 'Por favor insira sua senha!',
             }, {

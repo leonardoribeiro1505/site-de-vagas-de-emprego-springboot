@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom'
 
 const { Meta } = Card;
 
-const baseUrl = 'http://localhost:3002/oapi/vagas'
+const baseUrl = 'http://localhost:8080/vagas'
 export default class VagasList extends React.Component {
 
     state = {
@@ -37,11 +37,11 @@ export default class VagasList extends React.Component {
                             <Card
                                 hoverable
                                 style={{ width: 300 }}
-                                cover={<Link to={`/details/${item._id}`}><img width="298" alt="imagemDaEmpresa" src={imageAvatar} /></Link>}
+                                cover={<Link to={`/details/${item.id}`}><img width="298" alt="imagemDaEmpresa" src={imageAvatar} /></Link>}
                             >
                                 <Meta
-                                title={<Link to={`/details/${item._id}`}>{item.nomeCargo}</Link>}
-                                description={<Link to={`/details/${item._id}`}>Contratação: {item.tipoContratacao}</Link>}
+                                title={<Link to={`/details/${item.id}`}>{item.nomeCargo}</Link>}
+                                description={<Link to={`/details/${item.id}`}>Contratação: {item.tipoContratacao}</Link>}
                                 />
                             </Card>
                         </List.Item>

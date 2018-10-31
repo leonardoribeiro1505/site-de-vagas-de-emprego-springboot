@@ -4,7 +4,7 @@ export const isAuthenticated = () => localStorage.getItem(TOKEN_KEY, EMAIL) !== 
 export const getToken = () => localStorage.getItem(TOKEN_KEY, EMAIL);
 
 export const login = data => {
-    localStorage.setItem(TOKEN_KEY, data.token);
+    localStorage.setItem(TOKEN_KEY, data.headers.authorization);
     localStorage.setItem(EMAIL, data.email);
 };
 
