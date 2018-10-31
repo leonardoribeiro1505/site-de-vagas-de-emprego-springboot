@@ -1,28 +1,25 @@
 import React, { Component } from 'react'
-import { connect } from 'react-redux'
-import { bindActionCreators } from 'redux'
-import { logout } from '../components/auth/authActions'
 import { Avatar, Popover, Button } from 'antd'
+import { logout } from '../components/auth/auth'
 
-class Navbar extends Component {
+export default class Navbar extends Component {
 
     render() {
-        const { email } = this.props.user || {}
+        const email = localStorage.getItem("@email")      
         return (
             <content style={{ float: 'right' }}>
+                { email? 
                 <Popover
-                    content={<a href="" onClick={this.props.logout}>Sair</a>} 
+                    content={<a href="" onClick={logout}>Sair</a>} 
                     title={email} 
                     trigger="click">
                     <Avatar icon="user" />
                     <Button>
-                        {email}
+                        { !email? 'Off' : email }
                     </Button>
                 </Popover>
+                : ''}
             </content>
         )
     }
 }
-const mapStateToProps = state => ({ user: state.auth.user })
-const mapDispatchToProps = dispatch => bindActionCreators({ logout }, dispatch)
-export default connect(mapStateToProps, mapDispatchToProps)(Navbar)

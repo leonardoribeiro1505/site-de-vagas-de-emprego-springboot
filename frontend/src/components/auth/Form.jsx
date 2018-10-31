@@ -1,12 +1,9 @@
 import React from 'react'
-import { Button, Modal, Form, Input, Icon, Checkbox } from 'antd';
-import { connect } from 'react-redux'
-import { bindActionCreators } from 'redux'
-
-import { login, signup } from './authActions'
-import Messages from '../../template/msg/messages'
+import { Button, Modal, Form, Input, Icon, Checkbox, Card } from 'antd';
 import CadLoginForm from './CadLoginForm'
-import PageHeader from '../../template/pageHeader'
+import api from './api'
+import { login } from './auth'
+import { withRouter } from 'react-router-dom'
 
 const FormItem = Form.Item;
 
@@ -42,9 +39,19 @@ const CollectionCreateForm = Form.create()(
     this.setState({ loginMode: !this.state.loginMode })
   }
 
-  onSubmit(values) {
-    const { login } = this.props
-    login(values)
+  handleSignIn = () => {
+    this.props.form.validateFields(
+      (err, value) => {
+        if (!err) {
+          api.post("/login", value).then(response => {
+            login(response.data)
+              }
+            )
+        }
+        this.props.history.push("/");
+      },
+    );
+    
   }
 
   componentDidUpdate(){
@@ -59,65 +66,66 @@ const CollectionCreateForm = Form.create()(
     this.setState({ visible: false });
   }
 
-  logar = (e) => {
+  handleSubimit = (e) => {
     e.preventDefault();
     this.props.form.validateFields((err, values) => {
       if (!err) {
-        this.onSubmit(values)
-        console.log('Dador recebidos do form: ', values);
+        this.handleSignIn(values)
       }
     });
   }
 
   render() {
     const { getFieldDecorator } = this.props.form;
+    const loginTitle = <h2>Login de Usuário</h2>
     return (
       <center>
-        <PageHeader name={'Login de usuário'}/>
-        <br/>
-          <Form onSubmit={this.onSubmit} className="login-form" style={{ width: 300 }}>
-            <FormItem>
-              {getFieldDecorator('userName', {
-                rules: [{
-                  type: 'email', 
-                  required: true, message: 'Por favor insira seu e-mail!' }],
-              })(
-                <Input prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />} placeholder="E-mail" />
-              )}
-            </FormItem>
-            <FormItem>
-              {getFieldDecorator('password', {
-                rules: [{ required: true, message: 'Por favor insira sua senha!' }],
-              })(
-                <Input prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />} type="password" placeholder="Senha" />
-              )}
-            </FormItem>
-            <FormItem>
-              {getFieldDecorator('remember', {
-                valuePropName: 'checked',
-                initialValue: true,
-              })(
-                <Checkbox>Lembrar</Checkbox>
-              )}
-              <a className="login-form-forgot" href="">Esqueceu a senha</a>
-              <br/>
-              <Button style={{ width: 300 }} type="primary" htmlType="submit">
-                Entrar
-              </Button>
-              <br/>
-              Ou <a onClick={this.showModal}>Cadastre-se agora!</a>
-            </FormItem>
-          </Form>
-          <CollectionCreateForm
-            visible={this.state.visible}
-            onCancel={this.handleCancel}
-          />
-          <Messages />
+        <div style={{ background: '#ECECEC', padding: '30px', width: 450 }}>
+          <Card title={loginTitle} bordered={false} style={{ width: 380 }}>
+            <Form onSubmit={this.handleSubimit} className="login-form" >
+              <FormItem>
+                {getFieldDecorator('email', {
+                  rules: [{
+                    type: 'email', 
+                    required: true, message: 'Por favor insira seu e-mail!' }],
+                })(
+                  <Input prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />} placeholder="E-mail" />
+                )}
+              </FormItem>
+              <FormItem>
+                {getFieldDecorator('password', {
+                  rules: [{ required: true, message: 'Por favor insira sua senha!' }],
+                })(
+                  <Input prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />} type="password" placeholder="Senha" />
+                )}
+              </FormItem>
+              <FormItem>
+                {getFieldDecorator('remember', {
+                  valuePropName: 'checked',
+                  initialValue: true,
+                })(
+                  <Checkbox>Lembrar</Checkbox>
+                )}
+                <a className="login-form-forgot" href="">Esqueceu a senha</a>
+                <br/>
+                <Button style={{ width: 320 }} type="primary" htmlType="submit">
+                  Entrar
+                </Button>
+                <br/>
+                Ou <a onClick={this.showModal}>Cadastre-se agora!</a>
+              </FormItem>
+            </Form>
+            <CollectionCreateForm
+              visible={this.state.visible}
+              onCancel={this.handleCancel}
+            />
+          </Card>
+        </div>
+          
       </center>
     );
   }
 }
 
-Auth = Form.create()(Auth)
-const mapDispatchToProps = dispatch => bindActionCreators({ login, signup }, dispatch)
-export default connect(null, mapDispatchToProps)(Auth)
+export default Auth = Form.create()(Auth)
+withRouter(Auth)
